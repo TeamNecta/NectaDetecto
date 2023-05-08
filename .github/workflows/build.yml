@@ -35,7 +35,6 @@ jobs:
     - name: Release APK
       uses: ncipollo/release-action@v1
       with:
-        prerelease: true
         artifacts: app/build/outputs/apk/release/*.apk
         tag: ${{ steps.tag.outputs.version }}
       env:
