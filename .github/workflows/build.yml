@@ -19,6 +19,11 @@ jobs:
       with:
         distribution: 'zulu'
         java-version: 17
+    - name: Decode signing key
+      run: |
+        echo "${{ secrets.BASE_64_SIGNING_KEY }}" | base64 --decode > app/release_keystore.jks
+      env:
+        BASE_64_SIGNING_KEY: ${{ secrets.BASE_64_SIGNING_KEY }}
     - name: Make Gradle executable
       run: chmod +x ./gradlew
     - name: Build Release APK
@@ -28,6 +33,5 @@ jobs:
       with:
         prerelease: true
         artifacts: app/build/outputs/apk/release/*.apk
-        
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
