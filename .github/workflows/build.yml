@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - '*'
+  workflow_dispatch:
 
 jobs:
   Gradle:
@@ -22,5 +23,7 @@ jobs:
       run: ./gradlew assembleRelease
     - name: Release APK
       uses: ncipollo/release-action@v1
+      with:
+        prerelease: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
