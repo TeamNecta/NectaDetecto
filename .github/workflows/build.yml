@@ -12,7 +12,8 @@ on:
 jobs:
   Gradle:
     runs-on: ubuntu-latest
-    environment: Builder🚀
+    environment: 
+      name: Builder
     permissions:
       contents: write
 
