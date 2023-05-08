@@ -65,15 +65,13 @@ android {
 
     signingConfigs {
         release {
-            def localProperties = new Properties()
-            localProperties.load(new FileInputStream(rootProject.file("local.properties")))
-
-            storeFile file(localProperties['STORE_FILE'])
-            storePassword localProperties['STORE_PASSWORD']
-            keyPassword localProperties['KEY_PASSWORD']
-            keyAlias localProperties['KEY_ALIAS']
+            storeFile file(System.getenv('STORE_FILE'))
+            storePassword System.getenv('STORE_PASSWORD')
+            keyPassword System.getenv('KEY_PASSWORD')
+            keyAlias System.getenv('KEY_ALIAS')
         }
     }
+
 
 
 }
