@@ -24,10 +24,18 @@ jobs:
         echo "${{ secrets.BASE_64_SIGNING_KEY }}" | base64 --decode > app/release_keystore.jks
       env:
         BASE_64_SIGNING_KEY: ${{ secrets.BASE_64_SIGNING_KEY }}
+
+
     - name: Make Gradle executable
       run: chmod +x ./gradlew
     - name: Build Release APK
       run: ./gradlew assembleRelease
+      env:
+        STORE_FILE: "release_keystore.jks"
+        STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+        KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        KEY_ALIAS: "key0"
+        
     - name: Release APK
       uses: ncipollo/release-action@v1
       with:
