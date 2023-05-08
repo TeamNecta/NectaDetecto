@@ -28,10 +28,15 @@ jobs:
         key_alias: "key0"
         key_password: ${{ secrets.KEY_PASSWORD }}
 
+    - name: Prepare Tag
+      id: tag
+      run: echo "version=$(date +'v%y.%m.%d.%H%M%S')"  >> $GITHUB_OUTPUT
+
     - name: Release APK
       uses: ncipollo/release-action@v1
       with:
         prerelease: true
         artifacts: app/build/outputs/apk/release/*.apk
+        tag: ${{ steps.tag.outputs.version }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
